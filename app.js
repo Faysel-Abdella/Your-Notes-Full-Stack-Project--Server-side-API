@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
+const mongoose = require("mongoose");
 
 const app = express();
 
@@ -14,4 +15,14 @@ app.get("/", (req, res, next) => {
   res.send("Hi :)");
 });
 
-app.listen(8080);
+mongoose
+  .connect(process.env.MONGO_URL)
+  .then((result) => {
+    app.listen(process.env.PORT || 8080, () => {
+      console.log("Server running... :)");
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+    process.exit(1);
+  });
