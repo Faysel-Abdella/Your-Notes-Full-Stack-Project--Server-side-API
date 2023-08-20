@@ -34,7 +34,7 @@ exports.deleteTask = async (req, res, next) => {
   res.status(StatusCodes.OK).json({ message: "job deleted", job: removedJob });
 };
 
-exports.deleteAllCompletedTasks = async (req, req, next) => {
+exports.deleteAllCompletedTasks = async (req, res, next) => {
   try {
     await Task.findByIdAndDelete({ completed: true });
     res
