@@ -17,6 +17,10 @@ app.get("/", (req, res, next) => {
   res.send("Hi :)");
 });
 
+const taskRoute = require("./routes/taskRoute");
+
+app.use(taskRoute);
+
 //General error handling middleware
 app.use((error, req, res, next) => {
   const statusCode = error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR;

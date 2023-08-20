@@ -20,7 +20,7 @@ exports.createTask = async (req, res, next) => {
   res.status(StatusCodes.CREATED).json({ task: task });
 };
 
-exports.deleteTask = async (req, req, next) => {
+exports.deleteTask = async (req, res, next) => {
   const { id } = req.params;
   const removedJob = await Task.findByIdAndDelete(id);
 
@@ -33,6 +33,7 @@ exports.deleteTask = async (req, req, next) => {
   }
   res.status(StatusCodes.OK).json({ message: "job deleted", job: removedJob });
 };
+
 exports.deleteAllCompletedTasks = async (req, req, next) => {
   try {
     await Task.findByIdAndDelete({ completed: true });
@@ -44,4 +45,8 @@ exports.deleteAllCompletedTasks = async (req, req, next) => {
     error.StatusCode = StatusCodes.NOT_FOUND;
     throw error;
   }
+};
+
+exports.markAsCompleted = async (req, res, next) => {
+  const { id } = req.params;
 };
