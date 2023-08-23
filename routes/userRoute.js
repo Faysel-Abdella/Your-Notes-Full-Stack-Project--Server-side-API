@@ -7,9 +7,9 @@ const validationFunctions = require("../middlewares/validationMiddleware");
 const userController = require("../controllers/userController");
 
 router.post(
-  "/user/signup",
-  validationFunctions.validateSignupInput,
-  userController.signup
+  "/user/complete-signup",
+  validationFunctions.validateCompleteSignupInput,
+  userController.completeSignup
 );
 
 module.exports = router;

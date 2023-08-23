@@ -22,7 +22,7 @@ const userSchema = new Schema({
   phone: {
     type: Number,
   },
-  birthdayYear: {
+  birthDayYear: {
     type: Number,
   },
 });

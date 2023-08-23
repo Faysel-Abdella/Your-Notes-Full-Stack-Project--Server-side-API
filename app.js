@@ -37,6 +37,11 @@ app.use((req, res, next) => {
   next();
 });
 
+const attachEmailToReq = require("./utils/attachEmail");
+const attachEmail = attachEmailToReq.attachEmailToReq;
+
+app.use("*", attachEmail);
+
 app.use(userRoute);
 app.use(taskRoute);
 

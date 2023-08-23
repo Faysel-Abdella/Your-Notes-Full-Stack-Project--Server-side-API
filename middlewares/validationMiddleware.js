@@ -24,7 +24,7 @@ const withValidatorErrors = (validateValues) => {
   ];
 };
 
-exports.validateSignupInput = withValidatorErrors([
+exports.validateCompleteSignupInput = withValidatorErrors([
   body("email")
     .notEmpty()
     .withMessage("Email is required")
@@ -35,7 +35,9 @@ exports.validateSignupInput = withValidatorErrors([
     .custom(async (value) => {
       const user = await User.findOne({ email: value });
       if (user) {
-        throw new Error("email already exist");
+        throw new Error(
+          "email already exist, back to signup page and use a valid email"
+        );
       }
     }),
   body("password")
@@ -52,4 +54,10 @@ exports.validateSignupInput = withValidatorErrors([
       }
       return true;
     }),
+  body("username").notEmpty().withMessage("username is required"),
+  body("phone").notEmpty().withMessage("Phone number is required").trim(),
+  body("birthDayYear")
+    .notEmpty()
+    .withMessage("Birth  day year is required")
+    .trim(),
 ]);
