@@ -19,6 +19,7 @@ app.get("/", (req, res, next) => {
 });
 
 const taskRoute = require("./routes/taskRoute");
+const userRoute = require("./routes/userRoute");
 
 app.use((req, res, next) => {
   //set header to all response, NOTE that setHeader() does not send response
@@ -36,6 +37,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(userRoute);
 app.use(taskRoute);
 
 //404 middleware
