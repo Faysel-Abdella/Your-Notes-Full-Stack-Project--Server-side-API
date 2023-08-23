@@ -10,6 +10,28 @@ exports.getAllTasks = async (req, res, next) => {
   res.status(StatusCodes.OK).json({ tasks: tasks });
 };
 
+exports.getActiveTasks = async (req, res, next) => {
+  const activeTasks = await Task.find({ completed: "false" });
+
+  if (!activeTasks) {
+    return res.json({
+      message: "No task, please add a a task to see activeTasks",
+    });
+  }
+  res.status(StatusCodes.OK).json({ activeTasks: activeTasks });
+};
+
+exports.getCompletedTasks = async (req, res, next) => {
+  const completedTasks = await Task.find({ completed: "true" });
+
+  if (!completedTasks) {
+    return res.json({
+      message: "No task, please add a a task to see completedTasks",
+    });
+  }
+  res.status(StatusCodes.OK).json({ completedTasks: completedTasks });
+};
+
 exports.createTask = async (req, res, next) => {
   const task = new Task(req.body);
   await task.save();
@@ -32,15 +54,17 @@ exports.deleteTask = async (req, res, next) => {
 };
 
 exports.deleteAllCompletedTasks = async (req, res, next) => {
-  const removedTasks = await Task.findByIdAndDelete({ completed: true });
+  const removedTasks = await Task.deleteMany({ completed: "true" });
+  const tasksAfterRemoving = await Task.find();
+
   if (!removedTasks) {
-    const error = new Error("Fail to delete all completed jobs");
+    const error = new Error("Fail to delete all completed tasks");
     error.StatusCode = StatusCodes.NOT_FOUND;
     throw error;
   }
   res
     .status(StatusCodes.OK)
-    .json({ message: "completed jobs deleted", job: removedJob });
+    .json({ message: "completed tasks deleted", tasksAfterRemoving });
 };
 
 exports.markAsCompleted = async (req, res, next) => {
