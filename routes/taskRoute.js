@@ -12,6 +12,6 @@ router.patch("/task/:id", taskController.markAsCompleted);
 
 router.delete("/task/:id", taskController.deleteTask);
 
-router.get("/delete-all-tasks" / taskController.deleteAllCompletedTasks);
+router.get("/delete-all-tasks", taskController.deleteAllCompletedTasks);
 
 module.exports = router;
