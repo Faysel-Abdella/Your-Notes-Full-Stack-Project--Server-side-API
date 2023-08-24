@@ -70,3 +70,32 @@ exports.validateLoginInput = withValidatorErrors([
     .withMessage("Please provide a valid email"),
   body("password").notEmpty().withMessage("password is required"),
 ]);
+
+exports.validateUpdateUserInput = withValidatorErrors([
+  body("email")
+    .notEmpty()
+    .withMessage("Email is required")
+    .isEmail()
+    .withMessage("Please enter a valid email")
+    .normalizeEmail()
+    //check if there is a user with the same email
+    //check if there is a user with the same email
+    .custom(async (value, { req }) => {
+      const user = await User.findOne({ email: value });
+      if (user && user._id.toString() !== req.user.userId) {
+        throw new Error("email already exist");
+      }
+    }),
+  body("password")
+    .notEmpty()
+    .withMessage("Password is required")
+    .isLength({ min: 5 })
+    .withMessage("Password must be at least 5 characters")
+    .trim(),
+  body("username").notEmpty().withMessage("username is required"),
+  body("phone").notEmpty().withMessage("Phone number is required").trim(),
+  body("birthDayYear")
+    .notEmpty()
+    .withMessage("Birth  day year is required")
+    .trim(),
+]);
