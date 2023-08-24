@@ -58,9 +58,7 @@ exports.login = async (req, res, next) => {
 
     const token = createJWT({ userId: user._id });
 
-    res.cookie("token", token, {
-      httpOnly: true,
-    });
+    res.cookie("token", token);
 
     res.status(StatusCodes.OK).json({ message: "user logged in" });
   } catch (err) {
@@ -74,7 +72,6 @@ exports.login = async (req, res, next) => {
 exports.logout = (req, res) => {
   //i will set a d/t value for the cookie of the same name the user logged in
   res.cookie("token", "logout", {
-    httpOnly: true,
     //and make this to be expires now
     expires: new Date(Date.now()),
   });

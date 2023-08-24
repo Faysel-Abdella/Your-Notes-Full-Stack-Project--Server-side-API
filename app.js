@@ -49,6 +49,8 @@ app.use((req, res, next) => {
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, PATCH, DELETE"
   );
+  // allow the client to set cookie
+  res.setHeader("Access-Control-Allow-Credentials", "true");
   //set which header do you want to allow to be sended your server
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
