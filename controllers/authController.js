@@ -8,6 +8,10 @@ const { createJWT } = require("../utils/tokenUtil");
 
 // const { hashPassword } = require("../utils/hashPassword");
 
+exports.firstSignup = (req, res, next) => {
+  res.status(StatusCodes.CREATED).json({ message: "First signup step passed" });
+};
+
 exports.completeSignup = async (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;

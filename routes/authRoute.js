@@ -7,6 +7,12 @@ const validationFunctions = require("../middlewares/validationMiddleware");
 const userController = require("../controllers/authController");
 
 router.post(
+  "/first-signup",
+  validationFunctions.validateFirstSignup,
+  userController.firstSignup
+);
+
+router.post(
   "/complete-signup",
   validationFunctions.validateCompleteSignupInput,
   userController.completeSignup
