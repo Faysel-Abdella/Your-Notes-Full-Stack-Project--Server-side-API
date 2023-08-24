@@ -61,3 +61,12 @@ exports.validateCompleteSignupInput = withValidatorErrors([
     .withMessage("Birth  day year is required")
     .trim(),
 ]);
+
+exports.validateLoginInput = withValidatorErrors([
+  body("email")
+    .notEmpty()
+    .withMessage("Email is required")
+    .isEmail()
+    .withMessage("Please provide a valid email"),
+  body("password").notEmpty().withMessage("password is required"),
+]);

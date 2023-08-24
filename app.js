@@ -5,9 +5,11 @@ const morgan = require("morgan");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 
+const cookieParser = require("cookie-parser");
 const { StatusCodes } = require("http-status-codes");
 
 const app = express();
+app.use(cookieParser());
 
 //For parsing json data(application/json) from incoming req we use the following
 app.use(bodyParser.json());
@@ -19,7 +21,7 @@ app.get("/", (req, res, next) => {
 });
 
 const taskRoute = require("./routes/taskRoute");
-const userRoute = require("./routes/userRoute");
+const authRoute = require("./routes/authRoute");
 
 app.use((req, res, next) => {
   //set header to all response, NOTE that setHeader() does not send response
@@ -37,12 +39,7 @@ app.use((req, res, next) => {
   next();
 });
 
-const attachEmailToReq = require("./utils/attachEmail");
-const attachEmail = attachEmailToReq.attachEmailToReq;
-
-app.use("*", attachEmail);
-
-app.use(userRoute);
+app.use(authRoute);
 app.use(taskRoute);
 
 //404 middleware

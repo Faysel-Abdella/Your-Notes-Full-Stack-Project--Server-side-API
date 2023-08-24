@@ -4,12 +4,18 @@ const router = express.Router();
 
 const validationFunctions = require("../middlewares/validationMiddleware");
 
-const userController = require("../controllers/userController");
+const userController = require("../controllers/authController");
 
 router.post(
-  "/user/complete-signup",
+  "/complete-signup",
   validationFunctions.validateCompleteSignupInput,
   userController.completeSignup
+);
+
+router.post(
+  "/auth/login",
+  validationFunctions.validateLoginInput,
+  userController.login
 );
 
 module.exports = router;
