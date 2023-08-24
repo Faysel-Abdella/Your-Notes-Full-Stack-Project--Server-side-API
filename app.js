@@ -58,6 +58,10 @@ app.use(authRoute);
 app.use(authenticateUser, taskRoute);
 app.use(authenticateUser, userRoute);
 
+app.get("/test", (req, res, next) => {
+  res.json({ message: "Hello world" });
+});
+
 //404 middleware
 app.use("*", (req, res, next) => {
   //'*' stands for all routes that do not match the all the above routes
