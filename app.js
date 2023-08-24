@@ -43,7 +43,7 @@ app.use((req, res, next) => {
 });
 
 app.use(authRoute);
-app.use(taskRoute);
+app.use(authenticateUser, taskRoute);
 app.use(authenticateUser, userRoute);
 
 //404 middleware

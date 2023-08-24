@@ -3,7 +3,7 @@ const { StatusCodes } = require("http-status-codes");
 const Task = require("../models/taskModel");
 
 exports.getAllTasks = async (req, res, next) => {
-  const tasks = await Task.find();
+  const tasks = await Task.find({ createdBy: req.user.userId });
   if (!tasks) {
     return res.json({ message: "No task, please add a a task to see tasks" });
   }
@@ -34,6 +34,7 @@ exports.getCompletedTasks = async (req, res, next) => {
 
 exports.createTask = async (req, res, next) => {
   const task = new Task(req.body);
+  task.createdBy = req.user.userId;
   await task.save();
 
   res.status(StatusCodes.CREATED).json({ task: task });
