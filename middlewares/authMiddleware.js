@@ -7,7 +7,7 @@ exports.authenticateUser = (req, res, next) => {
 
   //Since you install the cookie-parser package, you can access the cookie form incoming request, just
   //by saying req.cookie
-
+  console.log(req);
   const { token } = req.cookies;
   if (!token) {
     const error = new Error("unauthenticated error, token does't exist");
