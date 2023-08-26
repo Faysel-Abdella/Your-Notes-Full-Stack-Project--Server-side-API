@@ -49,9 +49,9 @@ exports.login = async (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  const user = await User.findOne({ email: email });
-
+  
   try {
+    const user = await User.findOne({ email: email });
     if (!user) {
       const error = new Error("No user found");
       error.statusCode = StatusCodes.BAD_REQUEST;
@@ -60,6 +60,9 @@ exports.login = async (req, res, next) => {
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
+
+   
+
     if (!isMatch) {
       const error = new Error("Incorrect password");
       error.statusCode = StatusCodes.UNAUTHORIZED;
@@ -85,9 +88,8 @@ exports.login = async (req, res, next) => {
       secure: process.env.NODE_ENV === "production",
     });
 
-    res.json({preMessage: "The cookie in login is executed"})
 
-    res.status(StatusCodes.OK).json({ message: "user logged in" });
+    res.status(StatusCodes.OK).json({ message: "user logged in", token: token });
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;
