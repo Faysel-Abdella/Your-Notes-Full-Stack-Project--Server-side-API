@@ -58,7 +58,13 @@ exports.login = async (req, res, next) => {
 
     const token = createJWT({ userId: user._id });
 
-    res.cookie("token", token);
+    const oneDay = 1000 * 60 * 60 * 24;
+
+    res.cookie('token', token, {
+      // httpOnly: true,
+      expires: new Date(Date.now() + oneDay),
+      secure: process.env.NODE_ENV === 'production',
+    });
 
     res.status(StatusCodes.OK).json({ message: "user logged in" });
   } catch (err) {
