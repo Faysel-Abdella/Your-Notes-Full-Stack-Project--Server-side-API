@@ -39,6 +39,9 @@ exports.completeSignup = async (req, res, next) => {
     secure: process.env.NODE_ENV === "production",
   });
 
+    res.json({message: "The cookie in signup is executed"})
+
+
   res.status(StatusCodes.CREATED).json({ message: "User created" });
 };
 
@@ -81,6 +84,8 @@ exports.login = async (req, res, next) => {
       expires: new Date(Date.now() + oneDay),
       secure: process.env.NODE_ENV === "production",
     });
+
+    res.json({preMessage: "The cookie in login is executed"})
 
     res.status(StatusCodes.OK).json({ message: "user logged in" });
   } catch (err) {
