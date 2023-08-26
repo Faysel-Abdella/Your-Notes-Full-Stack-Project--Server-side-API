@@ -2,6 +2,7 @@ require("express-async-error");
 
 const fs = require("fs");
 const path = require("path");
+const cors = require("cors")
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -14,6 +15,7 @@ const { StatusCodes } = require("http-status-codes");
 
 const app = express();
 app.use(cookieParser());
+app.use(cors({ origin:true, credentials:true }))
 
 //
 
@@ -53,6 +55,9 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Credentials", "true");
   //set which header do you want to allow to be sended your server
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+  res.header( 'Access-Control-Allow-Credentials',true);
+
   next();
 });
 
