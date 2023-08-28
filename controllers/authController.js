@@ -32,24 +32,22 @@ exports.completeSignup = async (req, res, next) => {
 
   const token = user.createJWT();
 
-  const oneDay = 1000 * 60 * 60 * 24;
-  res.cookie("token", token, {
-    httpOnly: true,
-    expires: new Date(Date.now() + oneDay),
-    secure: process.env.NODE_ENV === "production",
-  });
+  // const oneDay = 1000 * 60 * 60 * 24;
+  // res.cookie("token", token, {
+  //   httpOnly: true,
+  //   expires: new Date(Date.now() + oneDay),
+  //   secure: process.env.NODE_ENV === "production",
+  // });
 
-    res.json({message: "The cookie in signup is executed"})
-
-
-  res.status(StatusCodes.CREATED).json({ message: "User created" });
+  res
+    .status(StatusCodes.CREATED)
+    .json({ message: "User created", token: token });
 };
 
 exports.login = async (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  
   try {
     const user = await User.findOne({ email: email });
     if (!user) {
@@ -60,8 +58,6 @@ exports.login = async (req, res, next) => {
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
-
-   
 
     if (!isMatch) {
       const error = new Error("Incorrect password");
@@ -88,8 +84,9 @@ exports.login = async (req, res, next) => {
       secure: process.env.NODE_ENV === "production",
     });
 
-
-    res.status(StatusCodes.OK).json({ message: "user logged in", token: token });
+    res
+      .status(StatusCodes.OK)
+      .json({ message: "user logged in", token: token });
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;
