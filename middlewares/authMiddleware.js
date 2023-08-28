@@ -5,7 +5,7 @@ exports.authenticateUser = (req, res, next) => {
   // ** Step 1: Check if token cookie exist from incoming request cookies,
   //    if it does't exist response unauthenticated error
 
-  const token = req.headers.authorization.split(" ")[1];
+  const token = req.headers.Authorization.split(" ")[1];
   if (!token) {
     const error = new Error("unauthenticated error, token does't exist");
     error.statusCode = StatusCodes.UNAUTHORIZED;
