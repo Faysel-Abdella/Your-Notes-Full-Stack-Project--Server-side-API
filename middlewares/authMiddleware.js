@@ -6,6 +6,8 @@ exports.authenticateUser = (req, res, next) => {
   //    if it does't exist response unauthenticated error
 
   const token = req.headers.authorization;
+  console.log(token);
+  res.json({ token: token });
   if (!token) {
     const error = new Error("unauthenticated error, token does't exist");
     error.statusCode = StatusCodes.UNAUTHORIZED;
