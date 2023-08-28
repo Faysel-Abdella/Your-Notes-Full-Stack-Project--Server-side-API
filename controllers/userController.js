@@ -19,3 +19,6 @@ exports.updateUser = async (req, res, next) => {
 
   res.status(StatusCodes.OK).json({ message: "user updated" });
 };
+export const verifyUser = () => {
+  req.message("all good");
+};

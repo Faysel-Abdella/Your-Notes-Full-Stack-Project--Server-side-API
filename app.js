@@ -16,7 +16,6 @@ const { StatusCodes } = require("http-status-codes");
 const app = express();
 app.use(cookieParser());
 
-
 //create a new file for storing morgan logs
 const accessLogStream = fs.createWriteStream(
   path.join(__dirname, "access.log"),
@@ -37,6 +36,7 @@ const authRoute = require("./routes/authRoute");
 const userRoute = require("./routes/userRoute");
 
 const { authenticateUser } = require("./middlewares/authMiddleware");
+const { tokenAuth } = require("./middlewares/tokenAuth");
 
 app.use((req, res, next) => {
   //set header to all response, NOTE that setHeader() does not send response
@@ -54,13 +54,12 @@ app.use((req, res, next) => {
   //set which header do you want to allow to be sended your server
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
-
   next();
 });
 
 app.use(authRoute);
-app.use(authenticateUser, taskRoute);
-app.use(authenticateUser, userRoute);
+app.use(taskRoute);
+app.use(tokenAuth, userRoute);
 
 app.get("/test", (req, res, next) => {
   res.json({ message: "Hello world" });
