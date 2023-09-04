@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
 
 const Schema = mongoose.Schema;
 
@@ -39,11 +39,9 @@ userSchema.methods.withOutPassword = function () {
 };
 
 userSchema.methods.createJWT = function () {
-  return jwt.sign(
-      {id: this._id},
-      process.env.JWT_SECRET,
-      {expiresIn: "24h"}
-  )
-}
+  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+    expiresIn: "24h",
+  });
+};
 
 module.exports = mongoose.model("User", userSchema);
