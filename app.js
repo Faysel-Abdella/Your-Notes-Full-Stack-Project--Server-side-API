@@ -38,21 +38,12 @@ const userRoute = require("./routes/userRoute");
 // const { authenticateUser } = require("./middlewares/authMiddleware");
 
 app.use((req, res, next) => {
-  //set header to all response, NOTE that setHeader() does not send response
-  //like res.render() and res.json(), it just only modified and add new header
   res.setHeader("Access-Control-Allow-Origin", "*");
-  // '*' means for do this for domains, you can do this for a specific domain
-
-  //set which methods do you want to allow to be sended to your server
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, PATCH, DELETE"
   );
-  // allow the client to set cookie
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  //set which header do you want to allow to be sended your server
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-
   next();
 });
 
