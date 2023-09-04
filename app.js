@@ -35,8 +35,7 @@ const taskRoute = require("./routes/taskRoute");
 const authRoute = require("./routes/authRoute");
 const userRoute = require("./routes/userRoute");
 
-const { authenticateUser } = require("./middlewares/authMiddleware");
-const { tokenAuth } = require("./middlewares/tokenAuth");
+// const { authenticateUser } = require("./middlewares/authMiddleware");
 
 app.use((req, res, next) => {
   //set header to all response, NOTE that setHeader() does not send response
@@ -59,7 +58,7 @@ app.use((req, res, next) => {
 
 app.use(authRoute);
 app.use(taskRoute);
-app.use(tokenAuth, userRoute);
+app.use(userRoute);
 
 app.get("/test", (req, res, next) => {
   res.json({ message: "Hello world" });
@@ -86,6 +85,6 @@ mongoose
     });
   })
   .catch((err) => {
-    console.log(err);
+    console.log("Connecting to MongoDB error", err);
     process.exit(1);
   });

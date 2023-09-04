@@ -32,13 +32,6 @@ exports.completeSignup = async (req, res, next) => {
 
   const token = user.createJWT();
 
-  // const oneDay = 1000 * 60 * 60 * 24;
-  // res.cookie("token", token, {
-  //   httpOnly: true,
-  //   expires: new Date(Date.now() + oneDay),
-  //   secure: process.env.NODE_ENV === "production",
-  // });
-
   res
     .status(StatusCodes.CREATED)
     .json({ message: "User created", token: token });
@@ -67,22 +60,7 @@ exports.login = async (req, res, next) => {
 
     // ### After the user passes all the above validation, now create a token for him and set up this token in his cookie
 
-    // const token = createJWT({ userId: user._id });
     const token = user.createJWT();
-
-    const oneDay = 1000 * 60 * 60 * 24;
-
-    // res.cookie('token', token, {
-    //   // httpOnly: true,
-    //   expires: new Date(Date.now() + oneDay),
-    //   secure: process.env.NODE_ENV === 'production',
-    // });
-
-    res.cookie("token", token, {
-      httpOnly: true,
-      expires: new Date(Date.now() + oneDay),
-      secure: process.env.NODE_ENV === "production",
-    });
 
     res
       .status(StatusCodes.OK)

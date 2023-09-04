@@ -2,28 +2,29 @@ const express = require("express");
 
 const router = express.Router();
 
-const validationFunctions = require("../middlewares/validationMiddleware");
+// ########## import validation middlewares ################# //
+
+const { validateFirstSignup } = require("../middlewares/validationMiddleware");
+const {
+  validateCompleteSignupInput,
+} = require("../middlewares/validationMiddleware");
+const { validateLoginInput } = require("../middlewares/validationMiddleware");
+
+// ########## import controllers ################# //
 
 const userController = require("../controllers/authController");
 
-router.post(
-  "/first-signup",
-  validationFunctions.validateFirstSignup,
-  userController.firstSignup
-);
+const { firstSignup } = require("../controllers/authController");
+const { completeSignup } = require("../controllers/authController");
+const { login } = require("../controllers/authController");
+const { logout } = require("../controllers/authController");
 
-router.post(
-  "/complete-signup",
-  validationFunctions.validateCompleteSignupInput,
-  userController.completeSignup
-);
+router.post("/first-signup", validateFirstSignup, firstSignup);
 
-router.post(
-  "/auth/login",
-  validationFunctions.validateLoginInput,
-  userController.login
-);
+router.post("/complete-signup", validateCompleteSignupInput, completeSignup);
 
-router.get("/auth/logout", userController.logout);
+router.post("/auth/login", validateLoginInput, login);
+
+router.get("/auth/logout", logout);
 
 module.exports = router;

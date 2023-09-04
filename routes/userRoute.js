@@ -6,8 +6,9 @@ const userControllers = require("../controllers/userController");
 
 const validationFunctions = require("../middlewares/validationMiddleware");
 
+router.post("/user/check-user", userControllers.checkUser);
+
 router.get("/user/current-user", userControllers.getCurrentUser);
-router.post("/user/verify", userControllers.verifyUser);
 
 router.patch(
   "/user/update-user",
