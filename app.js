@@ -27,10 +27,6 @@ app.use(bodyParser.json());
 app.use(morgan("dev", { stream: accessLogStream }));
 dotenv.config();
 
-app.get("/", (req, res, next) => {
-  res.send("Hi :)");
-});
-
 const taskRoute = require("./routes/taskRoute");
 const authRoute = require("./routes/authRoute");
 const userRoute = require("./routes/userRoute");
@@ -50,6 +46,10 @@ app.use((req, res, next) => {
 app.use(authRoute);
 app.use(taskRoute);
 app.use(userRoute);
+
+app.get("/", (req, res, next) => {
+  res.send("Hi :)");
+});
 
 app.get("/test", (req, res, next) => {
   res.json({ message: "Hello world" });
