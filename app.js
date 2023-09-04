@@ -81,7 +81,7 @@ mongoose
   .connect(process.env.MONGO_URL)
   .then((result) => {
     app.listen(process.env.PORT || 8080, () => {
-      console.log("Server running... :)");
+      console.log("Server running ... :)");
     });
   })
   .catch((err) => {

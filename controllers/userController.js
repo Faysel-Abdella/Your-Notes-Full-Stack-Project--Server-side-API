@@ -7,7 +7,6 @@ const User = require("../models/userModel");
 exports.checkUser = async (req, res, next) => {
   const token = req.body.token;
 
-  console.log("this is the req to check user", req);
   console.log("this is the token to check user", req.body.token);
 
   if (!token) {
