@@ -10,13 +10,31 @@ exports.createJWT = (payload) => {
   return token;
 };
 
-exports.verifyJWT = (token) => {
+exports.verifyJWT = () => {
+  const token = req.body.token;
+
+  if (!token) {
+    const error = new Error("unauthenticated error, token does't exist");
+    error.statusCode = StatusCodes.UNAUTHORIZED;
+    throw error;
+  }
   //The parameter the JWToken we getting back from the cookie
 
   //If the verification is successful and the token is valid, the verify() method
   //return the decoded payload of the JWT. This payload contains the claims and
   //information stored within the token. If the verification fails or the token
   // is invalid, an error or an exception is be thrown, indicating that the token should not be trusted.
-  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  const decoded = jwt.verify(
+    token,
+    process.env.JWT_SECRET,
+    (err, decodedToken) => {
+      if (err) {
+        return res.status(401).json({ message: "Invalid Token" });
+      }
+
+      req.userId = decodedToken.id;
+      next();
+    }
+  );
   return decoded;
 };
