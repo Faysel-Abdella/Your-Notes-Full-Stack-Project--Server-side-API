@@ -20,17 +20,12 @@ exports.verifyJWT = (req, res, next) => {
     error.statusCode = StatusCodes.UNAUTHORIZED;
     throw error;
   }
-  const decoded = jwt.verify(
-    token,
-    process.env.JWT_SECRET,
-    (err, decodedToken) => {
-      if (err) {
-        return res.status(401).json({ message: "Invalid Token" });
-      }
-
-      req.userId = decodedToken.id;
-      next();
-    }
-  );
-  return decoded;
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.userId = decoded.userId;
+    console.log("Attached userId in verifyJWT middleware", req.userId);
+    next();
+  } catch (error) {
+    return res.status(401).json({ message: "Invalid Token" });
+  }
 };

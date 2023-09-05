@@ -4,6 +4,10 @@ const bcrypt = require("bcryptjs");
 
 const User = require("../models/userModel");
 
+const { createJWT } = require("../utils/tokenUtil");
+
+// const { hashPassword } = require("../utils/hashPassword");
+
 exports.firstSignup = (req, res, next) => {
   res.status(StatusCodes.CREATED).json({ message: "First signup step passed" });
 };
@@ -53,6 +57,8 @@ exports.login = async (req, res, next) => {
       error.statusCode = StatusCodes.UNAUTHORIZED;
       throw error;
     }
+
+    // ### After the user passes all the above validation, now create a token for him and set up this token in his cookie
 
     const token = user.createJWT();
 

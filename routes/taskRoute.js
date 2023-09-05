@@ -2,6 +2,8 @@ const express = require("express");
 
 const router = express.Router();
 
+const { verifyJWT } = require("../utils/tokenUtil");
+
 const taskController = require("../controllers/taskController");
 
 router.get("/tasks", taskController.getAllTasks);
@@ -15,7 +17,7 @@ router.delete(
   taskController.deleteAllCompletedTasks
 );
 
-router.post("/task", taskController.createTask);
+router.post("/task", verifyJWT, taskController.createTask);
 
 router.patch("/task/:id", taskController.markAsCompleted);
 

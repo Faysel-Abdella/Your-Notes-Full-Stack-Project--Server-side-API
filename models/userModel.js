@@ -39,7 +39,7 @@ userSchema.methods.withOutPassword = function () {
 };
 
 userSchema.methods.createJWT = function () {
-  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+  return jwt.sign({ userId: this._id }, process.env.JWT_SECRET, {
     expiresIn: "24h",
   });
 };

@@ -33,8 +33,11 @@ exports.getCompletedTasks = async (req, res, next) => {
 };
 
 exports.createTask = async (req, res, next) => {
+  console.log("Access the attached userId in taks controller", req.userId);
+  //Extract the attached file
+  req.body.createdBy = req.userId;
   const task = new Task(req.body);
-  task.createdBy = req.user.userId;
+
   await task.save();
 
   res.status(StatusCodes.CREATED).json({ task: task });

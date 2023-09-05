@@ -28,10 +28,13 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(morgan("dev", { stream: accessLogStream }));
 dotenv.config();
+app.use(express.json());
 
 const taskRoute = require("./routes/taskRoute");
 const authRoute = require("./routes/authRoute");
 const userRoute = require("./routes/userRoute");
+
+const { verifyJWT } = require("./utils/tokenUtil");
 
 app.use(authRoute);
 app.use(taskRoute);
