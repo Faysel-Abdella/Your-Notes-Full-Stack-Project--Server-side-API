@@ -13,7 +13,18 @@ exports.createJWT = (payload) => {
 };
 
 exports.verifyJWT = (req, res, next) => {
+  // console.log("This is the header in req", body.headers);
+  // const token = req.body.token || req.headers.authorization;
   const token = req.body.token;
+
+  console.log(
+    "This is the request body in verifyJWT when adding a task",
+    req.body
+  );
+  console.log(
+    "This is the request token in verifyJWT when adding a task",
+    req.body.token
+  );
 
   if (!token) {
     const error = new Error("unauthenticated error, token does't exist");

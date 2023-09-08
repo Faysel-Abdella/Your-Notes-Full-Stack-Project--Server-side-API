@@ -6,7 +6,7 @@ const { verifyJWT } = require("../utils/tokenUtil");
 
 const taskController = require("../controllers/taskController");
 
-router.get("/tasks", taskController.getAllTasks);
+router.post("/tasks", verifyJWT, taskController.getAllTasks);
 
 router.get("/tasks/actives", taskController.getActiveTasks);
 
