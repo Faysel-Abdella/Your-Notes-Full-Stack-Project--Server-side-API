@@ -15,7 +15,7 @@ exports.createJWT = (payload) => {
 exports.verifyJWT = (req, res, next) => {
   const token = req.body.token;
 
-  console.log("This is the token when verifying", token);
+  // console.log("This is the token when verifying", token);
 
   if (!token) {
     const error = new Error("unauthenticated error, token does't exist");

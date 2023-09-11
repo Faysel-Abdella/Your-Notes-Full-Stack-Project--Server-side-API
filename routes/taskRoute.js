@@ -12,8 +12,9 @@ router.post("/tasks/actives", verifyJWT, taskController.getActiveTasks);
 
 router.post("/tasks/completed", verifyJWT, taskController.getCompletedTasks);
 
-router.delete(
+router.post(
   "/tasks/delete-completed",
+  verifyJWT,
   taskController.deleteAllCompletedTasks
 );
 

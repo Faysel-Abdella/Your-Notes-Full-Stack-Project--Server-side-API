@@ -64,8 +64,11 @@ exports.deleteTask = async (req, res, next) => {
 };
 
 exports.deleteAllCompletedTasks = async (req, res, next) => {
-  const removedTasks = await Task.deleteMany({ completed: "true" });
-  const tasksAfterRemoving = await Task.find();
+  const removedTasks = await Task.deleteMany({
+    createdBy: req.userId,
+    completed: "true",
+  });
+  const tasksAfterRemoving = await Task.find({ createdBy: req.userId });
 
   if (!removedTasks) {
     const error = new Error("Fail to delete all completed tasks");
