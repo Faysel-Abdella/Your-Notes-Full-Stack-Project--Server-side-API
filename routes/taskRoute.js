@@ -8,9 +8,9 @@ const taskController = require("../controllers/taskController");
 
 router.post("/tasks", verifyJWT, taskController.getAllTasks);
 
-router.get("/tasks/actives", taskController.getActiveTasks);
+router.post("/tasks/actives", verifyJWT, taskController.getActiveTasks);
 
-router.get("/tasks/completed", taskController.getCompletedTasks);
+router.post("/tasks/completed", verifyJWT, taskController.getCompletedTasks);
 
 router.delete(
   "/tasks/delete-completed",

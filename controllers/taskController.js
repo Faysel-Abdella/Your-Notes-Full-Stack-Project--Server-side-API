@@ -12,7 +12,10 @@ exports.getAllTasks = async (req, res, next) => {
 };
 
 exports.getActiveTasks = async (req, res, next) => {
-  const activeTasks = await Task.find({ completed: "false" });
+  const activeTasks = await Task.find({
+    createdBy: req.userId,
+    completed: "false",
+  });
 
   if (!activeTasks) {
     return res.json({
@@ -23,7 +26,10 @@ exports.getActiveTasks = async (req, res, next) => {
 };
 
 exports.getCompletedTasks = async (req, res, next) => {
-  const completedTasks = await Task.find({ completed: "true" });
+  const completedTasks = await Task.find({
+    createdBy: req.userId,
+    completed: "true",
+  });
 
   if (!completedTasks) {
     return res.json({

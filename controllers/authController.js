@@ -32,6 +32,8 @@ exports.completeSignup = async (req, res, next) => {
 
   const token = user.createJWT();
 
+  console.log("This is token when generating in singup", token);
+
   res
     .status(StatusCodes.CREATED)
     .json({ message: "User created", token: token });
@@ -61,6 +63,8 @@ exports.login = async (req, res, next) => {
     // ### After the user passes all the above validation, now create a token for him and set up this token in his cookie
 
     const token = user.createJWT();
+
+    console.log("This is token when generating in login", token);
 
     res
       .status(StatusCodes.OK)
