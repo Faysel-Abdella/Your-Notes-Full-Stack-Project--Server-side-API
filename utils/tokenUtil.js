@@ -13,18 +13,7 @@ exports.createJWT = (payload) => {
 };
 
 exports.verifyJWT = (req, res, next) => {
-  // console.log("This is the header in req", body.headers);
-  // const token = req.body.token || req.headers.authorization;
   const token = req.body.token;
-
-  console.log(
-    "This is the request body in verifyJWT when adding a task",
-    req.body
-  );
-  console.log(
-    "This is the request token in verifyJWT when adding a task",
-    req.body.token
-  );
 
   if (!token) {
     const error = new Error("unauthenticated error, token does't exist");
@@ -34,7 +23,6 @@ exports.verifyJWT = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.userId = decoded.userId;
-    console.log("Attached userId in verifyJWT middleware", req.userId);
     next();
   } catch (error) {
     return res.status(401).json({ message: "Invalid Token" });

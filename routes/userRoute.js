@@ -14,8 +14,13 @@ const { updateUser } = require("../controllers/userController");
 
 router.post("/user/check-user", verifyJWT, checkUser);
 
-router.get("/user/current-user", getCurrentUser);
+router.post("/user/current-user", verifyJWT, getCurrentUser);
 
-router.patch("/user/update-user", validateUpdateUserInput, updateUser);
+router.patch(
+  "/user/update-user",
+  verifyJWT,
+  validateUpdateUserInput,
+  updateUser
+);
 
 module.exports = router;

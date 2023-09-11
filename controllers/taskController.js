@@ -34,7 +34,6 @@ exports.getCompletedTasks = async (req, res, next) => {
 };
 
 exports.createTask = async (req, res, next) => {
-  console.log("Access the attached userId in taks controller", req.userId);
   //Extract the attached file
   req.body.createdBy = req.userId;
   const task = new Task(req.body);
@@ -50,12 +49,12 @@ exports.deleteTask = async (req, res, next) => {
 
   if (!removedJob) {
     const error = new Error(
-      "Job not found for providing id in order to delete"
+      "Task not found for providing id in order to delete"
     );
     error.StatusCode = StatusCodes.NOT_FOUND;
     throw error;
   }
-  res.status(StatusCodes.OK).json({ message: "job deleted", job: removedJob });
+  res.status(StatusCodes.OK).json({ message: "Task deleted", job: removedJob });
 };
 
 exports.deleteAllCompletedTasks = async (req, res, next) => {

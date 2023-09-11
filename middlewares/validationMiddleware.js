@@ -111,7 +111,7 @@ exports.validateUpdateUserInput = withValidatorErrors([
     //check if there is a user with the same email
     .custom(async (value, { req }) => {
       const user = await User.findOne({ email: value });
-      if (user && user._id.toString() !== req.user.userId) {
+      if (user && user._id.toString() !== req.userId) {
         throw new Error("email already exist");
       }
     }),

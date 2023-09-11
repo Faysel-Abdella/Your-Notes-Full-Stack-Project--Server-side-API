@@ -21,7 +21,7 @@ exports.authenticateUser = (req, res, next) => {
 
     req.user = { userId: id };
     //the same as saying req { user: {userId, role} }
-    console.log(req.user);
+
     next();
   } catch (err) {
     const error = new Error("unauthenticated error");
